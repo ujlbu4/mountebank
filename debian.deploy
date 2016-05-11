@@ -1,17 +1,18 @@
 #!/usr/bin/env bash
 set -ex
 
-if [ ! -d /tmp/.nvm ]; then
-    git clone https://github.com/creationix/nvm.git /tmp/.nvm
-    pushd /tmp/.nvm >/dev/null
+ROOT=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
+pushd $ROOT >/dev/null
+
+if [ ! -d $ROOT/.nvm ]; then
+    git clone https://github.com/creationix/nvm.git $ROOT/.nvm
+    pushd $ROOT/.nvm >/dev/null
     git checkout `git describe --abbrev=0 --tags`
     popd
 fi
 
-ROOT=$(cd $(dirname "${BASH_SOURCE[0]}") && pwd)
-pushd $ROOT >/dev/null
 
-. /tmp/.nvm/nvm.sh
+. $ROOT/.nvm/nvm.sh
 
 export HTTP_PROXY="http://proxy.srv.inn.ru:3128/"
 export HTTPS_PROXY="http://proxy.srv.inn.ru:3128/"
